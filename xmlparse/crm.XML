@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterBOSS>
+    <Version>0100</Version>
+    <TestFlag>0</TestFlag>
+    <BIPType>
+        <BIPCode>BIP1A163</BIPCode>
+        <ActivityCode>T1000157</ActivityCode>
+        <ActionCode>1</ActionCode>
+    </BIPType>
+    <RoutingInfo>
+        <OrigDomain>BOSS</OrigDomain>
+        <RouteType>00</RouteType>
+        <Routing>
+            <HomeDomain>UPSS</HomeDomain>
+            <RouteValue>997</RouteValue>
+        </Routing>
+    </RoutingInfo>
+    <TransInfo>
+        <SessionID>1669259952</SessionID>
+        <TransIDO>24020161101000007005224810020</TransIDO>
+        <TransIDOTime>20161101000007</TransIDOTime>
+        <TransIDH>101020161031235850867000020586</TransIDH>
+        <TransIDHTime>20161101000008</TransIDHTime>
+    </TransInfo>
+    <SNReserve>
+        <TransIDC>2400111320161101000007853806708</TransIDC>
+        <ConvID>3e75f027-f444-4425-b0db-d09750770379</ConvID>
+        <CutOffDay>20161101</CutOffDay>
+        <OSNTime>20161101000007</OSNTime>
+        <OSNDUNS>2400</OSNDUNS>
+        <HSNDUNS>9970</HSNDUNS>
+        <MsgSender>2401</MsgSender>
+        <MsgReceiver>0233</MsgReceiver>
+        <Priority>3</Priority>
+        <ServiceLevel>5</ServiceLevel>
+    </SNReserve>
+    <Response>
+        <RspType>2</RspType>
+        <RspCode>2998</RspCode>
+        <RspDesc>失败</RspDesc>
+    </Response>
+    <SvcCont>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8"?><PaymentRsp><IDType>01</IDType><IDValue>13840144076</IDValue><TransactionID>10240201611010024114900001075355</TransactionID><ActionDate>20161101</ActionDate><RspCode>2A12</RspCode><RspInfo>银行账号余额不足</RspInfo></PaymentRsp>]]>
+    </SvcCont>
+</InterBOSS>
