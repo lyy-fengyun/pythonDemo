@@ -1,0 +1,28 @@
+问题描述: 
+商城对账871省以11:30重跑
+
+涉及主机或数据库: 
+172.16.59.19  (5002)   upayhis  upay
+
+解决步骤: 
+(1) 修改文件到达标表状态：屏蔽错误文件、选择07:51时刻的文件
+    select *
+    from upayhis.upay.UPAY_BAT_file_reach_log t
+    where t.settle_date=convert(char,dateadd(day, -1, getdate()),112)
+    and t.buss_type='scpay'-- 
+    and platform_side='01'
+    and t.org_id in ( '871' )
+    order by last_upd_time
+    手动修改或者update操作，使得账期是昨天的文件的status字段修改为：时间为11:30的文件为00(文件到达)，其它文件改为04(数据字典未定义)
+
+(2) 查询步骤表并修改相应字段：
+    select *
+    from upay_bat_batchrunstat
+    where stlm_date=convert(char,dateadd(day, -1, getdate()),112)
+    and batch_stepcd='5500'  ----移动商城
+修改BATCH_STEPCDCS(子步骤)为00，STEP_STAT(状态)改为00，其中：STEP_STAT状态定义为：00:未处理 01:处理中 02:处理成功 03:处理失败。
+步骤表upay_bat_batchrunstat字段diff_power 00是省侧，01时是商城。
+
+问题原因: 
+
+

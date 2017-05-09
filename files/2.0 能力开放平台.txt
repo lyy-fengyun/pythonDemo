@@ -1,0 +1,58 @@
+问题描述: 
+能力开放平台业务重跑
+
+涉及主机或数据库: 
+172.16.89.98
+
+解决步骤: 
+能力开发平台对账包含：
+1 能力文件与支付宝、银联对账
+2 能力开放平台与浙商，包含对账流程与退费流程
+
+对账文件示例：
+浙商退费文件示例
+OSPZJOCREFD20170425001.251.CMCC
+浙商对账文件示例
+OSPZJOC20170425001.251.CMCC
+能力开放平台文件示例
+C999_09001_20170427_001.txt
+能力开放平台校验文件示例
+C999_09001_20170427_CHK.txt
+
+文件核心主机 172.16.89.98
+能力开发平台文件文件核心目录（文件核心入库目录）
+/opt/mcb/upaysys/ospdata/incoming/file_interface/cmosp/0069/account/osp
+
+浙商侧接口机文件前置目录
+172.16.59.131
+退费文件路径
+/opt/mcb/upaysys/ospdata/incoming/file_interface/cmosp/0069_251/refd/osp_zjoc
+对账文件路径
+/opt/mcb/upaysys/ospdata/incoming/file_interface/cmosp/0069_251/account/osp_zjoc
+
+重跑命令:(在89.98主机上直接输入重跑命令进行重跑)
+1 重跑浙商对账
+curl -d "processId=Proc_Clearing_ZJOC&busiLine=0069_251&settleDate=20170427&province=" http://172.16.89.98:8085/cmup-dispatcher/startProcess/
+
+2 重跑退费文件
+
+curl -d "processId=Proc_Clearing_ZJOCERFD&busiLine=0069_251&settleDate=20170427&province=" http://172.16.89.98:8085/cmup-dispatcher/startProcess/
+
+3 重跑能力开发与银联、支付宝
+
+curl -d "processId=Proc_Clearing_CMOSP&busiLine=0069&settleDate=20170427&province=" http://172.16.89.98:8085/cmup-dispatcher/startProcess/
+
+sql说明
+查看能力开发平台check文件
+select * from cmosp_file_incoming k where k.settle_date='20170427' and k.file_type='CMOSP_osp_check' order by k.arrive_time desc 
+查看能力开发平台对账文件
+select * from cmosp_file_incoming k where k.settle_date='20170427' and k.file_type='CMOSP_osp_account' order by k.arrive_time desc 
+查看浙商对账文件
+select * from cmosp_file_incoming k where k.settle_date='20170427' and k.file_type='CMOSP_zjoc_account' order by k.arrive_time desc 
+查看浙商退费文件
+select * from cmosp_file_incoming k where k.settle_date='20170427' and k.file_type='CMOSP_zjoc_refd' order by k.arrive_time desc 
+
+
+问题原因: 
+
+
